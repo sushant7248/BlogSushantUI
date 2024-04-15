@@ -16,6 +16,7 @@
             "outputPath": "dist/blog-sushant-ui",
             "index": "src/index.html",
             "browser": "src/main.ts",
+            "externalDependencies":[""],
             "polyfills": [
               "zone.js"
             ],
@@ -31,7 +32,7 @@
             "server": "src/main.server.ts",
             "prerender": true,
             "ssr": {
-              "entry": "server.ts"
+              "entry": "main.ts"
             }
           },
           "configurations": {
@@ -44,8 +45,8 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "200kb",
+                  "maximumError": "400kb"
                 }
               ],
               "outputHashing": "all"
@@ -96,5 +97,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "e46734b3-99d7-47d0-a6db-e23f0007c8e8"
   }
 }
