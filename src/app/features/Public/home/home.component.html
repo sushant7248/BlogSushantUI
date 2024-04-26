@@ -1,0 +1,93 @@
+<!-- <div class="container">
+  <div class="my-5">
+    <div class="row align-items-strech">
+      <ng-container *ngIf="blogs$ | async as blogs">
+        <div class="col-12 col-md-4 mb-3" *ngFor="let blog of blogs">
+          <div class="card h-100">
+            <img [src]="blog.featuredImageUrl" class="card-img-top"
+            [alt]="blog.title">
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title">
+                {{blog.title}}
+              </h5>
+              <p class="card-text">
+                {{blog.shortDescription}}
+              </p>
+              <span class="d-flex align-items-end" style="flex: 1">
+              <a [routerLink]="['/blog', blog.id]" class="btn btn-primary">
+                Read More
+              </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+
+
+ -->
+
+
+ <div class="container">
+  <div class="my-5">
+    <!-- Search input -->
+    
+    <div class="d-flex">
+      <input type="text" class="form-control" #queryText>
+      <button type="button" class="btn btn-warning ms-3" (click)="onSearch(queryText.value)">Search</button>
+    </div>
+    
+    <div *ngIf="blogs$ | async as blog">
+      </div>
+      
+
+   
+
+       <!--Sorting controls -->
+     <!-- <div class="btn-group mb-3">
+      <button class="btn btn-secondary" (click)="sort('title', 'asc')">Sort by Title Asc</button>
+      <button class="btn btn-secondary" (click)="sort('title', 'desc')">Sort by Title Desc</button>
+      <button class="btn btn-secondary" (click)="sort('createdAt', 'asc')">Sort by Date Asc</button>
+      <button class="btn btn-secondary" (click)="sort('createdAt', 'desc')">Sort by Date Desc</button>
+    </div>  -->
+
+    <!-- Blog Posts -->
+    <div class="row align-items-stretch">
+      <ng-container *ngIf="blogs$ | async as blogs">
+        <div class="col-12 col-md-4 mb-3" *ngFor="let blog of blogs">
+          <div class="card h-100">
+            <img [src]="blog.featuredImageUrl" class="card-img-top" [alt]="blog.title">
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title">{{blog.title}}</h5>
+              <p class="card-text">{{blog.shortDescription}}</p>
+              <p class="card-text">Author: {{ blog.author }}</p> 
+              <p class="card-text">Published: {{ blog.publishedDate| date:'medium' }}</p> 
+              <span class="d-flex align-items-end" style="flex: 1">
+                <a [routerLink]="['/blog', blog.id]" class="btn btn-primary">Read More</a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+
+    <!-- Pagination controls -->
+    <nav aria-label="Page navigation">
+      <ul class="pagination justify-content-center mt-3">
+        <li class="page-item" [class.disabled]="pageNumber === 1">
+          <button class="page-link" (click)="onPageChange(pageNumber - 1)" [disabled]="pageNumber === 1">Previous</button>
+        </li>
+        <li class="page-item" *ngFor="let page of getPageArray()" [class.active]="page === pageNumber">
+          <button class="page-link" (click)="onPageChange(page)">{{page}}</button>
+        </li>
+        <li class="page-item" [class.disabled]="isLastPage()">
+          <button class="page-link" (click)="onPageChange(pageNumber + 1)" [disabled]="isLastPage()">Next</button>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
+

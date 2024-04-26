@@ -4,7 +4,12 @@ import { AddCategoryComponent } from './features/category/add-category/add-categ
 import { BlogpostListComponent } from './features/blog-post/blogpost-list/blogpost-list.component';
 import { AddBlogpostComponent } from './features/blog-post/add-blogpost/add-blogpost.component';
 import { LoginComponent } from './features/auth/login/login.component';
-// import { HomeComponent } from './features/Public/home/home.component';
+import { HomeComponent } from './features/Public/home/home.component';
+import { BlogDetailsComponent } from './features/Public/blog-details/blog-details.component';
+
+import { EditCategoryComponent } from './features/category/edit-category/edit-category.component';
+import { EditBlogpostComponent } from './features/blog-post/edit-blogpost/edit-blogpost.component';
+
 
 export const routes: Routes = [
 
@@ -29,7 +34,23 @@ export const routes: Routes = [
 
         path:'admin/features/login',
         component:LoginComponent
-    }
+    },{
+        path: '',
+        component: HomeComponent
+      },
+      {
+        path: 'blog/:url',
+        component: BlogDetailsComponent
+      },
+      {
+        path: 'admin/blogposts/:id',
+        component: EditBlogpostComponent,
+        
+      },
+    {
+
+        path: 'admin/categories/:id',
+    component: EditCategoryComponent,
+      }
    
-    
 ];

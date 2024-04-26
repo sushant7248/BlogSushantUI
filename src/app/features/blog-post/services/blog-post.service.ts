@@ -2,7 +2,7 @@ import { Injectable, model } from '@angular/core';
 import { AddBlogPost } from '../models/add-blog-post.model';
 import { Observable } from 'rxjs';
 import { BlogPost } from '../models/blog-post.model';
-import { HttpClient} from '@angular/common/http';
+import { HttpClient,HttpParams} from '@angular/common/http';
 import { UpdateBlogPost } from '../models/update-blog-post.model';
 
 @Injectable({
@@ -37,23 +37,60 @@ export class BlogPostService {
    
   }
 
-  getAllBlogPosts() : Observable<BlogPost[]> {
-    return this.http.get<BlogPost[]>(`https://localhost:7097/api/blogposts`);
+  // getAllBlogPosts() : Observable<BlogPost[]> {
+  //   return this.http.get<BlogPost[]>(`https://localhost:7097/api/BlogPost`);
+  // }
+
+
+  getAllBlogPosts(
+    query?: string,
+    sortBy?: string,
+    sortDirection?: string,
+    pageNumber?: number,
+    pageSize?: number
+  ): Observable<BlogPost[]> {
+    let params = new HttpParams();
+
+    if (query) {
+      params = params.set('query', query);
+    }
+
+    if (sortBy) {
+      params = params.set('sortBy', sortBy);
+    }
+
+    if (sortDirection) {
+      params = params.set('sortDirection', sortDirection);
+    }
+
+    if (pageNumber) {
+      params = params.set('pageNumber', pageNumber.toString());
+    }
+
+    if (pageSize) {
+      params = params.set('pageSize', pageSize.toString());
+    }
+
+    return this.http.get<BlogPost[]>('https://localhost:7097/api/BlogPost', {
+      params: params
+    });
   }
 
+  
   getBlogPostById(id: string): Observable<BlogPost> {
-    return this.http.get<BlogPost>(`https://localhost:7097/api/blogposts/${id}`);
+    return this.http.get<BlogPost>(`https://localhost:7097/api/BlogPost/${id}`);
   }
 
   getBlogPostByUrlHandle(urlHandle: string): Observable<BlogPost> {
-    return this.http.get<BlogPost>(`https://localhost:7097/api/blogposts/${urlHandle}`);
+    return this.http.get<BlogPost>(`https://localhost:7097/api/BlogPost/${urlHandle}`);
   }
 
   updateBlogPost(id: string, updatedBlogPost: UpdateBlogPost): Observable<BlogPost> {
-    return this.http.put<BlogPost>(`$https://localhost:7097/api/blogposts/${id}`, updatedBlogPost);
+    return this.http.put<BlogPost>(`https://localhost:7097/api/BlogPost/${id}`, updatedBlogPost);
   }
 
   deleteBlogPost(id: string): Observable<BlogPost> {
-    return this.http.delete<BlogPost>(`$https://localhost:7097/api/blogposts/${id}`);
+    return this.http.delete<BlogPost>(`https://localhost:7097/api/BlogPost/${id}`);
   }
 }
+

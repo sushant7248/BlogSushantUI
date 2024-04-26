@@ -1,20 +1,28 @@
+import { Component,OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Observable } from 'rxjs';
+import { BlogPost } from '../models/blog-post.model';
+import { BlogPostService } from '../services/blog-post.service';
+import { RouterLink } from '@angular/router';
 
-
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 @Component({
   selector: 'app-blogpost-list',
    standalone: true,
-   imports: [],
+   imports: [CommonModule,RouterLink],
   templateUrl: './blogpost-list.component.html',
   styleUrls: ['./blogpost-list.component.css']
 })
-export class BlogpostListComponent {
-  
-  constructor(private router: Router) {}
+ export class BlogpostListComponent implements OnInit {
 
-  navigateToAddBlogPost(): void {
-    this.router.navigate(['admin/blogposts/add']);
+  blogPosts$?: Observable<BlogPost[]>;
+
+  constructor(private blogPostService: BlogPostService) {
+
   }
-}
 
+  ngOnInit(): void {
+    // get all blog posts from API
+    this.blogPosts$ = this.blogPostService.getAllBlogPosts();
+  }
+
+}

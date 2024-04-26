@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 
 
 
+
 @Component({
   selector: 'app-navbar',
   standalone: true,
@@ -22,13 +23,21 @@ export class NavbarComponent {
 
   constructor(private router: Router, private authService: AuthService) {
     
-    console.log(this.user)
+    {
+      this.authService.user().subscribe(user => {
+        this.user = user;
+      });
+
+    }
     
   }
 
   onLogin(): void {
+    
     this.router.navigate(['admin/features/login']);
   }
+
+  
 
   onLogout(): void {
     this.authService.logout();
